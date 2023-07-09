@@ -1,0 +1,20 @@
+dig NumInfo plant import "NumInfo"
+dig add plant tool(a, b, aS, bS) new NumInfo(a + b, "'aS' + 'bS'")
+dig subtract plant tool(a, b, aS, bS) (a < b ? new NumInfo(b - a, "'bS' - 'aS'"), new NumInfo(a - b, "'aS' - 'bS'"))
+dig multiply plant tool(a, b, aS, bS) new NumInfo(a * b, "'aS' * 'bS'")
+dig divide plant tool(a, b, aS, bS) {
+    dig swap plant a < b
+    if a = 0 {
+        if b = 0 {
+            harvest new NumInfo(-1, "") # err #
+        }
+        swap plant no
+    } elseif b = 0 {
+        swap plant yes
+    }
+    harvest swap ? new NumInfo(b/a, "'bS'/'aS'"), new NumInfo(a/b, "'aS'/'bS'")
+}
+dig exponentA plant tool(a, b, aS, bS) new NumInfo(a ** b, "'aS' ** 'bS'")
+dig exponentB plant tool(a, b, aS, bS) exponentA(b, a, bS, aS)
+
+harvest [add, subtract, multiply, divide, exponentA, exponentB]

@@ -1,0 +1,7 @@
+# editable constants #
+harvest {
+    dig MAX plant 1000 # the maximum value that constructs can reach  #
+    dig BASE_NUM plant 4 # the number that all other numbers must be made of #
+    dig NUM_OF_NUMS plant 4 # the number of base nums to use in creating any full construct #
+}
+# end of constants #

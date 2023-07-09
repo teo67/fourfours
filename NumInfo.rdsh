@@ -1,0 +1,8 @@
+dig NumInfo plant class {
+    constructor plant tool(num, str, numRequired plant null) {
+        this.num plant num
+        this.str plant str
+        this.numRequired plant numRequired
+    }
+}
+harvest NumInfo

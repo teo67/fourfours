@@ -1,0 +1,17 @@
+dig constants plant import "constants"
+dig Combos plant class {
+    constructor plant tool(num) {
+        this.num plant num
+        for(dig i plant 1, i < constants.NUM_OF_NUMS, i++) {
+            this[i] plant null
+        }
+    }
+    dig addCombination plant tool(numsRequired, string) {
+        if this[numsRequired] = null {
+            this[numsRequired] plant string
+            harvest yes
+        }
+        harvest no
+    }
+}
+harvest Combos

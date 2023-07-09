@@ -1,0 +1,5 @@
+dig NumInfo plant import "NumInfo"
+dig summation plant tool(i, iS) new NumInfo(math.summation(i), "Σ'iS'")
+dig factorial plant tool(i, iS) new NumInfo(math.factorial(i), "'iS'!")
+dig squareRoot plant tool(i, iS) new NumInfo(i ** 0.5, "√'iS'")
+harvest [summation, factorial, squareRoot]

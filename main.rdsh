@@ -1,0 +1,75 @@
+dig unary plant import "unary"
+dig binary plant import "binary"
+dig Combos plant import "Combos"
+dig constants plant import "constants"
+dig combos plant {}
+dig fourCombos plant {}
+dig NumInfo plant import "NumInfo"
+
+dig addToCombos plant tool(info) {
+    if info.numRequired > constants.NUM_OF_NUMS or info.num > constants.MAX or info.num < 0 or info.num % 1 != 0 {
+        end
+    }
+    if info.numRequired = constants.NUM_OF_NUMS {
+        fourCombos[info.num] plant info.str
+        end
+    }
+    if combos.get(info.num) = null {
+        combos[info.num] plant new Combos(info.num)
+    }
+    info.str plant "('info.str')"
+    if combos[info.num].addCombination(info.numRequired, info.str) {
+        runAll(info)
+    }
+}
+
+dig runAll plant tool(info) {
+    dig infos plant []
+    each un of unary {
+        dig inf plant un(info.num, info.str)
+        inf.numRequired plant info.numRequired
+        infos.push(inf)
+    }
+    each key keyto combos {
+        dig combo plant combos[key]
+        for(dig i plant 1, i <= constants.NUM_OF_NUMS - info.numRequired, i++) {
+            if(combo[i] != null) {
+                each bi of binary {
+                    dig inf plant bi(info.num, combo.num, info.str, combo[i])
+                    inf.numRequired plant info.numRequired + i
+                    infos.push(inf)
+                }
+            }
+        }
+    }
+    each info of infos {
+        addToCombos(info)
+    }
+}
+addToCombos(new NumInfo(constants.BASE_NUM, "'constants.BASE_NUM'", 1))
+
+dig read plant tool(num) {
+    dig gotten plant fourCombos.get(num)
+    if gotten = null {
+        holler("No expression found for 'num'!")
+        harvest no
+    }
+    holler("'num': 'gotten'")
+    harvest yes
+}
+
+dig printAll plant tool {
+    dig notFound plant []
+    for(dig i plant 0, i <= constants.MAX, i++) {
+        if not read(i) {
+            notFound.push(i)
+        }
+    }
+    holler("'notFound.length' numbers could not be generated.")
+    if notFound.length > 0 {
+        holler("Not found:")
+        holler(notFound)
+    }
+}
+
+printAll()
